@@ -131,7 +131,8 @@ export default function App() {
   const mockdata = useStore((state) => state.mockData);
   const setMockData = useStore((state) => state.setMockData);
   const { classes } = useStyles();
-
+  const [dashboardVisible, setDashboardVisible] = useState(false)
+  const [placeholderProjects, setPlaceholderProjects] = useState(["Equilibrium Project", "Lorem Project", "Ipsum Project"])
   const handleClick = (index) => {
     // setNavIndex(index);
   };
@@ -164,402 +165,450 @@ export default function App() {
   };
   const [navIndex, setNavIndex] = useState(0);
 
-  return (
-    <>
-      <Navbar
-        sx={{ backdropFilter: "blur(5px)" }}
-        // height={800}
-        width={{ sm: 300 }}
-        p="md"
-        className={classes.navbar}
-      >
-        <Navbar.Section className={classes.header}>
-          <Group position="apart">
-            <Image src="/pamogi-logo.png" width={100} />
-          </Group>
-        </Navbar.Section>
 
-        <Navbar.Section grow className={classes.links} component={ScrollArea}>
-          <div className={classes.linksInner}>{links}</div>
-          <Center>
-            <Button
-              onClick={() => handleAddTopic()}
-              variant="light"
-              color="violet"
-              rightIcon={<BsPlusSquareDotted color="violet" />}
-              disabled={mockdata.length >= 5}
-            >
-              Add Topic
-            </Button>
-          </Center>
-        </Navbar.Section>
 
-        <Navbar.Section className={classes.footer}>
-          <UserButton
-            image="/mogi.jpg"
-            name="Pamogi Bot"
-            email="pamogi@pamogi.com"
+  if(dashboardVisible == true){
+    return(
+      <div className="dash_container">
+        <div className="dash_sidebar-container">
+          <div className="dash_sidebar-container_logo">
+            <img src="/pamogi-logo.png" width={100} />
+          </div>
+          <div className="dash_buttons_section">
+            <div className="dash_buttons-container">
+              <button>Project dashboard</button>
+              <button>Projects</button>
+              <button>Tasks</button>
+              <button>Contributions</button>
+              <button>Investments</button>
+            </div>
+          </div>
+        </div>
+        <div className="dash_main-canva">
+          <div className="dash_project-selection_container">
+            <select className="dash_project-selection_select">
+              {placeholderProjects.map((project, index) => {
+                return(
+                  <option value={project}>{project}</option>
+                )
+              })}
+            </select>
+            <div>
+              <button className="dash_project-selection_create-button"> Create new project</button>
+            </div>
+          </div>
+          <button onClick={() => setDashboardVisible(false)}>Switch to 3D</button>
+
+        </div>
+      </div>
+    )
+  } else {
+
+    const Scene = (props) => {
+      useEffect(() => {
+        setTargetPosition([
+          0 + props.navIndex * 5,
+          -1.85,
+          0 - props.navIndex * 2.5,
+        ]);
+        setIsMoving(true);
+      }, [props.navIndex]);
+      const [targetPosition, setTargetPosition] = useState([0, -1.85, 0]);
+      const [waterfalls, setWaterfalls] = useState([]);
+      const [isMoving, setIsMoving] = useState(true);
+      const handleClick = (index) => {
+        setTargetPosition([0 + index * 5, -1.85, 0 - index * 2.5]);
+        setIsMoving(true);
+      };
+      const [branchOne, setBranchOne] = useState();
+      const [branchTwo, setBranchTwo] = useState();
+      const [branchThree, setBranchThree] = useState();
+      const [branchFour, setBranchFour] = useState();
+      const [branchFive, setBranchFive] = useState();
+      useEffect(() => {
+        // const newWaterfalls = props.mockdata.map((item, index) => {
+        //   return (
+        //     <group onClick={() => handleClick(index)}>
+        //       <Waterfall key={item.label} index={index} />
+        //       <River2 key={item.label} index={index} />
+        //     </group>
+        //   );
+        // });
+        // setWaterfalls(newWaterfalls);
+        // console.log(props.mockdata);
+        if (
+          props.mockdata.length === 1 ||
+          props.mockdata.length === 2 ||
+          props.mockdata.length === 3 ||
+          props.mockdata.length === 4 ||
+          props.mockdata.length === 5
+        ) {
+          setBranchOne(<Sub11 />);
+          if (props.mockdata[0].links.length === 2) {
+            setBranchOne(
+              <>
+                <Sub11 />
+                <Sub12 />
+              </>
+            );
+          }
+          if (props.mockdata[0].links.length === 3) {
+            setBranchOne(
+              <>
+                <Sub11 />
+                <Sub12 />
+                <Sub13 />
+              </>
+            );
+          }
+          if (props.mockdata[0].links.length === 4) {
+            setBranchOne(
+              <>
+                <Sub11 />
+                <Sub12 />
+                <Sub13 />
+                <Sub14 />
+              </>
+            );
+          }
+          if (props.mockdata[0].links.length === 5) {
+            console.log("af;alsdjf");
+            setBranchOne(
+              <>
+                <Sub11 />
+                <Sub12 />
+                <Sub13 />
+                <Sub14 />
+                <Sub15 />
+              </>
+            );
+          }
+        }
+        if (
+          props.mockdata.length === 2 ||
+          props.mockdata.length === 3 ||
+          props.mockdata.length === 4 ||
+          props.mockdata.length === 5
+        ) {
+          setBranchTwo(
+            <>
+              <Sub21 />
+            </>
+          );
+          if (props.mockdata[1].links.length === 2) {
+            setBranchTwo(
+              <>
+                <Sub21 />
+                <Sub22 />
+              </>
+            );
+          }
+          if (props.mockdata[1].links.length === 3) {
+            setBranchTwo(
+              <>
+                <Sub21 />
+                <Sub22 />
+                <Sub23 />
+              </>
+            );
+          }
+          if (props.mockdata[1].links.length === 4) {
+            setBranchTwo(
+              <>
+                <Sub21 />
+                <Sub22 />
+                <Sub23 />
+                <Sub24 />
+              </>
+            );
+          }
+          if (props.mockdata[1].links.length === 5) {
+            setBranchTwo(
+              <>
+                <Sub21 />
+                <Sub22 />
+                <Sub23 />
+                <Sub24 />
+                <Sub25 />
+              </>
+            );
+          }
+        }
+        if (
+          props.mockdata.length === 3 ||
+          props.mockdata.length === 4 ||
+          props.mockdata.length === 5
+        ) {
+          setBranchThree(
+            <>
+              <Sub31 />
+            </>
+          );
+    
+          if (props.mockdata[2].links.length === 2) {
+            setBranchThree(
+              <>
+                <Sub31 />
+                <Sub32 />
+              </>
+            );
+          }
+          if (props.mockdata[2].links.length === 3) {
+            setBranchThree(
+              <>
+                <Sub31 />
+                <Sub32 />
+                <Sub33 />
+              </>
+            );
+          }
+          if (props.mockdata[2].links.length === 4) {
+            setBranchThree(
+              <>
+                <Sub31 />
+                <Sub32 />
+                <Sub33 />
+                <Sub34 />
+              </>
+            );
+          }
+          if (props.mockdata[2].links.length === 5) {
+            setBranchThree(
+              <>
+                <Sub31 />
+                <Sub32 />
+                <Sub33 />
+                <Sub34 />
+                <Sub35 />
+              </>
+            );
+          }
+        }
+        if (props.mockdata.length === 4 || props.mockdata.length === 5) {
+          setBranchFour(
+            <>
+              <Sub41 />
+            </>
+          );
+    
+          if (props.mockdata[3].links.length === 2) {
+            setBranchFour(
+              <>
+                <Sub41 />
+                <Sub42 />
+              </>
+            );
+          }
+          if (props.mockdata[3].links.length === 3) {
+            setBranchFour(
+              <>
+                <Sub41 />
+                <Sub42 />
+                <Sub43 />
+              </>
+            );
+          }
+          if (props.mockdata[3].links.length === 4) {
+            setBranchFour(
+              <>
+                <Sub41 />
+                <Sub42 />
+                <Sub43 />
+                <Sub44 />
+              </>
+            );
+          }
+          if (props.mockdata[3].links.length === 5) {
+            setBranchFour(
+              <>
+                <Sub41 />
+                <Sub42 />
+                <Sub43 />
+                <Sub44 />
+                <Sub55 />
+              </>
+            );
+          }
+        }
+        if (props.mockdata.length === 5) {
+          setBranchFive(
+            <>
+              <Sub51 />
+            </>
+          );
+    
+          if (props.mockdata[4].links.length === 2) {
+            setBranchFive(
+              <>
+                <Sub51 />
+                <Sub52 />
+              </>
+            );
+          }
+          if (props.mockdata[4].links.length === 3) {
+            setBranchFive(
+              <>
+                <Sub51 />
+                <Sub52 />
+                <Sub53 />
+              </>
+            );
+          }
+          if (props.mockdata[4].links.length === 4) {
+            setBranchFive(
+              <>
+                <Sub51 />
+                <Sub52 />
+                <Sub53 />
+                <Sub54 />
+              </>
+            );
+          }
+    
+          if (props.mockdata[4].links.length === 5) {
+            setBranchFive(
+              <>
+                <Sub51 />
+                <Sub52 />
+                <Sub53 />
+                <Sub54 />
+                <Sub55 />
+              </>
+            );
+          }
+        }
+      }, [props.mockdata]);
+    
+      const dummyRef = useRef();
+      let vec = new THREE.Vector3();
+    
+      useFrame((state, delta) => {
+        if (isMoving) {
+          gsap.to(dummyRef.current.position, {
+            x: targetPosition[0],
+            y: targetPosition[1],
+            z: targetPosition[2],
+            duration: 2,
+          });
+          gsap.to(state.camera.position, {
+            x: dummyRef.current.position.x + 15,
+            y: dummyRef.current.position.y + 15.5,
+            z: dummyRef.current.position.z + 15,
+            duration: 2,
+          });
+          setIsMoving(false);
+        }
+        state.camera.lookAt(dummyRef.current.position);
+      });
+    
+      return (
+        <>
+          <group position={[0, -1.85, 0]} scale={0.3}>
+            <Waterfall />
+            {/* <Sub11 />
+            <Sub12 /> */}
+            {branchOne}
+            {branchTwo}
+            {branchThree}
+            {branchFour}
+            {branchFive}
+          </group>
+          {/* {waterfalls} */}
+    
+          <mesh ref={dummyRef}>
+            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+            <meshBasicMaterial
+              transparent
+              opacity={0}
+              attach="material"
+              color="black"
+            />
+          </mesh>
+    
+          <pointLight position={[0, 10, 0]} intensity={1} />
+    
+          <Grid
+            renderOrder={-1}
+            position={[0, -1.85, 0]}
+            infiniteGrid={true}
+            cellSize={0.5}
+            cellThickness={0.6}
+            sectionSize={2}
+            sectionThickness={1.5}
+            sectionColor={[0.5, 0.5, 10]}
+            fadeDistance={50}
           />
-        </Navbar.Section>
-      </Navbar>
-      <Canvas
-        gl={{ logarithmicDepthBuffer: true }}
-        shadows
-        camera={{
-          position: [15, 15, 10],
-          fov: 25,
-        }}
-      >
-        <Scene navIndex={navIndex} mockdata={mockdata} />
-      </Canvas>
-    </>
-  );
-}
-
-const Scene = (props) => {
-  useEffect(() => {
-    setTargetPosition([
-      0 + props.navIndex * 5,
-      -1.85,
-      0 - props.navIndex * 2.5,
-    ]);
-    setIsMoving(true);
-  }, [props.navIndex]);
-  const [targetPosition, setTargetPosition] = useState([0, -1.85, 0]);
-  const [waterfalls, setWaterfalls] = useState([]);
-  const [isMoving, setIsMoving] = useState(true);
-  const handleClick = (index) => {
-    setTargetPosition([0 + index * 5, -1.85, 0 - index * 2.5]);
-    setIsMoving(true);
-  };
-  const [branchOne, setBranchOne] = useState();
-  const [branchTwo, setBranchTwo] = useState();
-  const [branchThree, setBranchThree] = useState();
-  const [branchFour, setBranchFour] = useState();
-  const [branchFive, setBranchFive] = useState();
-  useEffect(() => {
-    // const newWaterfalls = props.mockdata.map((item, index) => {
-    //   return (
-    //     <group onClick={() => handleClick(index)}>
-    //       <Waterfall key={item.label} index={index} />
-    //       <River2 key={item.label} index={index} />
-    //     </group>
-    //   );
-    // });
-    // setWaterfalls(newWaterfalls);
-    // console.log(props.mockdata);
-    if (
-      props.mockdata.length === 1 ||
-      props.mockdata.length === 2 ||
-      props.mockdata.length === 3 ||
-      props.mockdata.length === 4 ||
-      props.mockdata.length === 5
-    ) {
-      setBranchOne(<Sub11 />);
-      if (props.mockdata[0].links.length === 2) {
-        setBranchOne(
-          <>
-            <Sub11 />
-            <Sub12 />
-          </>
-        );
-      }
-      if (props.mockdata[0].links.length === 3) {
-        setBranchOne(
-          <>
-            <Sub11 />
-            <Sub12 />
-            <Sub13 />
-          </>
-        );
-      }
-      if (props.mockdata[0].links.length === 4) {
-        setBranchOne(
-          <>
-            <Sub11 />
-            <Sub12 />
-            <Sub13 />
-            <Sub14 />
-          </>
-        );
-      }
-      if (props.mockdata[0].links.length === 5) {
-        console.log("af;alsdjf");
-        setBranchOne(
-          <>
-            <Sub11 />
-            <Sub12 />
-            <Sub13 />
-            <Sub14 />
-            <Sub15 />
-          </>
-        );
-      }
-    }
-    if (
-      props.mockdata.length === 2 ||
-      props.mockdata.length === 3 ||
-      props.mockdata.length === 4 ||
-      props.mockdata.length === 5
-    ) {
-      setBranchTwo(
-        <>
-          <Sub21 />
+          <OrbitControls
+            enablePan={false}
+            zoomSpeed={0.3}
+            rotateSpeed={0.4}
+            maxPolarAngle={Math.PI / 2}
+          />
+          <EffectComposer disableNormalPass>
+            <Bloom luminanceThreshold={2} mipmapBlur />
+          </EffectComposer>
+          <Environment background preset="sunset" blur={0.8} />
         </>
       );
-      if (props.mockdata[1].links.length === 2) {
-        setBranchTwo(
-          <>
-            <Sub21 />
-            <Sub22 />
-          </>
-        );
-      }
-      if (props.mockdata[1].links.length === 3) {
-        setBranchTwo(
-          <>
-            <Sub21 />
-            <Sub22 />
-            <Sub23 />
-          </>
-        );
-      }
-      if (props.mockdata[1].links.length === 4) {
-        setBranchTwo(
-          <>
-            <Sub21 />
-            <Sub22 />
-            <Sub23 />
-            <Sub24 />
-          </>
-        );
-      }
-      if (props.mockdata[1].links.length === 5) {
-        setBranchTwo(
-          <>
-            <Sub21 />
-            <Sub22 />
-            <Sub23 />
-            <Sub24 />
-            <Sub25 />
-          </>
-        );
-      }
-    }
-    if (
-      props.mockdata.length === 3 ||
-      props.mockdata.length === 4 ||
-      props.mockdata.length === 5
-    ) {
-      setBranchThree(
-        <>
-          <Sub31 />
-        </>
-      );
-
-      if (props.mockdata[2].links.length === 2) {
-        setBranchThree(
-          <>
-            <Sub31 />
-            <Sub32 />
-          </>
-        );
-      }
-      if (props.mockdata[2].links.length === 3) {
-        setBranchThree(
-          <>
-            <Sub31 />
-            <Sub32 />
-            <Sub33 />
-          </>
-        );
-      }
-      if (props.mockdata[2].links.length === 4) {
-        setBranchThree(
-          <>
-            <Sub31 />
-            <Sub32 />
-            <Sub33 />
-            <Sub34 />
-          </>
-        );
-      }
-      if (props.mockdata[2].links.length === 5) {
-        setBranchThree(
-          <>
-            <Sub31 />
-            <Sub32 />
-            <Sub33 />
-            <Sub34 />
-            <Sub35 />
-          </>
-        );
-      }
-    }
-    if (props.mockdata.length === 4 || props.mockdata.length === 5) {
-      setBranchFour(
-        <>
-          <Sub41 />
-        </>
-      );
-
-      if (props.mockdata[3].links.length === 2) {
-        setBranchFour(
-          <>
-            <Sub41 />
-            <Sub42 />
-          </>
-        );
-      }
-      if (props.mockdata[3].links.length === 3) {
-        setBranchFour(
-          <>
-            <Sub41 />
-            <Sub42 />
-            <Sub43 />
-          </>
-        );
-      }
-      if (props.mockdata[3].links.length === 4) {
-        setBranchFour(
-          <>
-            <Sub41 />
-            <Sub42 />
-            <Sub43 />
-            <Sub44 />
-          </>
-        );
-      }
-      if (props.mockdata[3].links.length === 5) {
-        setBranchFour(
-          <>
-            <Sub41 />
-            <Sub42 />
-            <Sub43 />
-            <Sub44 />
-            <Sub55 />
-          </>
-        );
-      }
-    }
-    if (props.mockdata.length === 5) {
-      setBranchFive(
-        <>
-          <Sub51 />
-        </>
-      );
-
-      if (props.mockdata[4].links.length === 2) {
-        setBranchFive(
-          <>
-            <Sub51 />
-            <Sub52 />
-          </>
-        );
-      }
-      if (props.mockdata[4].links.length === 3) {
-        setBranchFive(
-          <>
-            <Sub51 />
-            <Sub52 />
-            <Sub53 />
-          </>
-        );
-      }
-      if (props.mockdata[4].links.length === 4) {
-        setBranchFive(
-          <>
-            <Sub51 />
-            <Sub52 />
-            <Sub53 />
-            <Sub54 />
-          </>
-        );
-      }
-
-      if (props.mockdata[4].links.length === 5) {
-        setBranchFive(
-          <>
-            <Sub51 />
-            <Sub52 />
-            <Sub53 />
-            <Sub54 />
-            <Sub55 />
-          </>
-        );
-      }
-    }
-  }, [props.mockdata]);
-
-  const dummyRef = useRef();
-  let vec = new THREE.Vector3();
-
-  useFrame((state, delta) => {
-    if (isMoving) {
-      gsap.to(dummyRef.current.position, {
-        x: targetPosition[0],
-        y: targetPosition[1],
-        z: targetPosition[2],
-        duration: 2,
-      });
-      gsap.to(state.camera.position, {
-        x: dummyRef.current.position.x + 15,
-        y: dummyRef.current.position.y + 15.5,
-        z: dummyRef.current.position.z + 15,
-        duration: 2,
-      });
-      setIsMoving(false);
-    }
-    state.camera.lookAt(dummyRef.current.position);
-  });
-
-  return (
-    <>
-      <group position={[0, -1.85, 0]} scale={0.3}>
-        <Waterfall />
-        {/* <Sub11 />
-        <Sub12 /> */}
-        {branchOne}
-        {branchTwo}
-        {branchThree}
-        {branchFour}
-        {branchFive}
-      </group>
-      {/* {waterfalls} */}
-
-      <mesh ref={dummyRef}>
-        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-        <meshBasicMaterial
-          transparent
-          opacity={0}
-          attach="material"
-          color="black"
-        />
-      </mesh>
-
-      <pointLight position={[0, 10, 0]} intensity={1} />
-
-      <Grid
-        renderOrder={-1}
-        position={[0, -1.85, 0]}
-        infiniteGrid={true}
-        cellSize={0.5}
-        cellThickness={0.6}
-        sectionSize={2}
-        sectionThickness={1.5}
-        sectionColor={[0.5, 0.5, 10]}
-        fadeDistance={50}
-      />
-      <OrbitControls
-        enablePan={false}
-        zoomSpeed={0.3}
-        rotateSpeed={0.4}
-        maxPolarAngle={Math.PI / 2}
-      />
-      <EffectComposer disableNormalPass>
-        <Bloom luminanceThreshold={2} mipmapBlur />
-      </EffectComposer>
-      <Environment background preset="sunset" blur={0.8} />
-    </>
-  );
-};
+    };
+    return (
+      <>
+        <Navbar
+          sx={{ backdropFilter: "blur(5px)" }}
+          // height={800}
+          width={{ sm: 300 }}
+          p="md"
+          className={classes.navbar}
+        >
+          <Navbar.Section className={classes.header}>
+            <Group position="apart">
+              <Image src="/pamogi-logo.png" width={100} />
+            </Group>
+          </Navbar.Section>
+  
+          <Navbar.Section grow className={classes.links} component={ScrollArea}>
+            <div className={classes.linksInner}>{links}</div>
+            <Center>
+              <Button
+                onClick={() => handleAddTopic()}
+                variant="light"
+                color="violet"
+                rightIcon={<BsPlusSquareDotted color="violet" />}
+                disabled={mockdata.length >= 5}
+              >
+                Add Topic
+              </Button>
+            </Center>
+          </Navbar.Section>
+  
+          <Navbar.Section className={classes.footer}>
+            <UserButton
+              image="/mogi.jpg"
+              name="Pamogi Bot"
+              email="pamogi@pamogi.com"
+            />
+            <Center>
+            <Button
+            variant="light"
+            color="violet"
+            onClick={() => setDashboardVisible(true)}
+            >
+              Go to Dashboard view
+            </Button>
+            </Center>
+          </Navbar.Section>
+        </Navbar>
+        <Canvas
+          gl={{ logarithmicDepthBuffer: true }}
+          shadows
+          camera={{
+            position: [15, 15, 10],
+            fov: 25,
+          }}
+        >
+          <Scene navIndex={navIndex} mockdata={mockdata} />
+        </Canvas>
+      </>
+    );
+  }
+  }
