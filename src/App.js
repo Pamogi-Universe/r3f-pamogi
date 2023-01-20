@@ -149,20 +149,6 @@ export default function App() {
     );
   }, [mockdata]);
 
-  const handleAddTopic = () => {
-    const newTopic = {
-      index: mockdata.length,
-      label: "Topic " + (mockdata.length + 1),
-      icon: GiWaterfall,
-      initiallyOpened: false,
-      links: [
-        { label: "Subtopic 1", link: "/" },
-        // { label: "Subtopic 2", link: "/" },
-      ],
-    };
-    setMockData([...mockdata, newTopic]);
-    // setNavIndex(mockdata.length);
-  };
   const [navIndex, setNavIndex] = useState(0);
 
 
@@ -204,6 +190,21 @@ export default function App() {
     )
   } else {
 
+      const handleAddTopic = () => {
+    const newTopic = {
+      index: mockdata.length,
+      label: "Topic " + (mockdata.length + 1),
+      icon: GiWaterfall,
+      initiallyOpened: false,
+      links: [
+        { label: "Subtopic 1", link: "/" },
+        // { label: "Subtopic 2", link: "/" },
+      ],
+    };
+    setMockData([...mockdata, newTopic]);
+    // setNavIndex(mockdata.length);
+  };
+
     const Scene = (props) => {
       useEffect(() => {
         setTargetPosition([
@@ -211,7 +212,7 @@ export default function App() {
           -1.85,
           0 - props.navIndex * 2.5,
         ]);
-        setIsMoving(true);
+        setIsMoving(false);
       }, [props.navIndex]);
       const [targetPosition, setTargetPosition] = useState([0, -1.85, 0]);
       const [waterfalls, setWaterfalls] = useState([]);
