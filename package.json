@@ -9,7 +9,10 @@
   ],
   "main": "src/index.js",
   "dependencies": {
+    "@emotion/react": "^11.10.5",
     "@mantine/core": "^5.10.0",
+    "@mantine/hooks": "^5.10.1",
+    "@mantine/styles": "^5.10.1",
     "@material/web": "^1.0.0-pre.1",
     "@pmndrs/branding": "0.0.8",
     "@react-three/drei": "9.48.4",

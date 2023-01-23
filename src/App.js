@@ -45,6 +45,8 @@ import { LinksGroup } from "./interface/LinksGroup";
 import { GrOverview } from "react-icons/gr";
 import { GiWaterfall } from "react-icons/gi";
 import { BsPlusSquareDotted } from "react-icons/bs";
+import Dashboard from "./dashboard/Dashboard";
+
 import Waterfall from "./newModels/Waterfall";
 import Sub11 from "./newModels/Sub11";
 import Sub12 from "./newModels/Sub12";
@@ -132,7 +134,6 @@ export default function App() {
   const setMockData = useStore((state) => state.setMockData);
   const { classes } = useStyles();
   const [dashboardVisible, setDashboardVisible] = useState(false)
-  const [placeholderProjects, setPlaceholderProjects] = useState(["Equilibrium Project", "Lorem Project", "Ipsum Project"])
   const handleClick = (index) => {
     // setNavIndex(index);
   };
@@ -155,38 +156,7 @@ export default function App() {
 
   if(dashboardVisible == true){
     return(
-      <div className="dash_container">
-        <div className="dash_sidebar-container">
-          <div className="dash_sidebar-container_logo">
-            <img src="/pamogi-logo.png" width={100} />
-          </div>
-          <div className="dash_buttons_section">
-            <div className="dash_buttons-container">
-              <button>Project dashboard</button>
-              <button>Projects</button>
-              <button>Tasks</button>
-              <button>Contributions</button>
-              <button>Investments</button>
-            </div>
-          </div>
-        </div>
-        <div className="dash_main-canva">
-          <div className="dash_project-selection_container">
-            <select className="dash_project-selection_select">
-              {placeholderProjects.map((project, index) => {
-                return(
-                  <option value={project}>{project}</option>
-                )
-              })}
-            </select>
-            <div>
-              <button className="dash_project-selection_create-button"> Create new project</button>
-            </div>
-          </div>
-          <button onClick={() => setDashboardVisible(false)}>Switch to 3D</button>
-
-        </div>
-      </div>
+      <Dashboard/>
     )
   } else {
 
